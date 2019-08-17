@@ -93,8 +93,8 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-app.listen(5000, () =>
-{
-  console.log("Server is up")
-})
+// app.listen(5000, () =>
+// {
+//   console.log("Server is up")
+// })
 
