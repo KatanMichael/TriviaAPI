@@ -9,7 +9,6 @@ var usersRouter = require('./routes/users');
 
 var admin = require('firebase-admin');
 var firebase = require('firebase');
-var firebaseui = require('firebaseui');
 
 var app = express();
 
@@ -27,13 +26,40 @@ const firebaseConfig = {
 
 admin.initializeApp(firebaseConfig);
 
-let db = admin.db;
+let db = admin.firestore();
 
-app.post('/addQuestion', (request, response) => 
+var id = 0;
+
+app.post('/addQuestion', (request, respond) =>
 {
-  
+  const title = request.get("title");
+  const correct = request.get("correct");
+  const wrong1 = request.get("wrong1");
+  const wrong2 = request.get("wrong2");
+  const wrong3 = request.get("wrong3");
+  const category = request.get("category");
+
+  const data = 
+  {
+    "title" : title,
+    "correct_answer" : correct,
+    "wrong1": wrong1,
+    "wrong2" : wrong2,
+    "wrong3" : wrong3,
+    "category": category,
+    "id": id
 
 
+  };
+
+  db.collection('Questions').add(data).then(ref =>
+    {
+      respond.sendStatus(200).send(ref);
+
+    }).catch(error =>
+      {
+        respond.sendStatus(500).send(error)
+      })
 })
 
 // view engine setup
@@ -66,3 +92,9 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+app.listen(5000, () =>
+{
+  console.log("Server is up")
+})
+
