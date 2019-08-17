@@ -11,6 +11,4 @@ function addQuestionToDatabse(title,correct,r1,r2,r3,cat)
     xmlHttp.setRequestHeader("category",cat);
     xmlHttp.send();
     return xmlHttp.responseText;
-
-
 }

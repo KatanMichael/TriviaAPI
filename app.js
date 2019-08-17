@@ -60,7 +60,7 @@ app.post('/addQuestion', (request, respond) =>
       {
         respond.sendStatus(500).send(error)
       })
-})
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
