@@ -28,8 +28,9 @@ admin.initializeApp(firebaseConfig);
 
 let db = admin.firestore();
 
+var id = 0;
 
-app.post('/addQuestion', (request, respond) =>
+app.post('/addQuestion', async (request, respond) =>
 {
   const title = request.get("title");
   const correct = request.get("correct");
@@ -53,11 +54,11 @@ app.post('/addQuestion', (request, respond) =>
 
   db.collection('Questions').add(data).then(ref =>
     {
-      respond.sendStatus(200).send(ref);
+      respond.status(200).send(ref)
 
     }).catch(error =>
       {
-        respond.sendStatus(500).send(error)
+        respond.status(500).send(error)
       })
 });
 
@@ -92,8 +93,8 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-// app.listen(5000, () =>
-// {
-//   console.log("Server is up")
-// })
+app.listen(5000, () =>
+{
+  console.log("Server is up")
+})
 
